@@ -617,6 +617,21 @@ with st.sidebar:
 
     st.divider()
 
+    # Nota metodológica de datos
+    st.markdown(
+        f"""
+        <div style="background:#f0fdf4;border-left:3px solid {C_GREEN};
+                    border-radius:6px;padding:10px 12px;margin-bottom:12px;">
+            <span style="font-size:.78rem;color:{C_DARK};line-height:1.5;">
+                📌 <strong>Nota de Datos:</strong> Las métricas mostradas reflejan
+                el impacto consolidado (directo + indirecto por compartidos)
+                exportado por Meta Business Suite.
+            </span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
     st.download_button(
         label="📄  Descargar Reporte PDF",
         data=pdf_bytes,
@@ -663,6 +678,63 @@ with tab1:
     k3.metric("💚 Engagement FB",      f"{avg_er_fb:.2f} %", "promedio organico")
     k4.metric("💚 Engagement IG",      f"{avg_er_ig:.2f} %", "promedio organico")
     k5.metric("🔗 Clics Enlace FB",    f"{clics_fb:,}",      f"CTR {ctr_fb:.2f} %")
+
+    # ── Glosario Ejecutivo ────────────────────────────────────────────────────────
+    with st.expander("🔍 Glosario Ejecutivo — ¿Por qué los números difieren de la app móvil?", expanded=False):
+        st.markdown(f"""
+        <div style="border-left:4px solid {C_GREEN};padding:4px 16px;margin-bottom:8px;">
+            <p style="color:{C_DARK};font-size:.95rem;margin:8px 0;">
+                Los datos presentados corresponden al <strong>Impacto Orgánico Consolidado</strong>
+                de Meta Business Suite, el cual difiere de lo que se ve visualmente
+                en la aplicación móvil por lo siguiente:
+            </p>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:.9rem;">
+            <thead>
+                <tr>
+                    <th style="background:{C_GREEN};color:white;padding:8px 12px;
+                                border-radius:6px 0 0 0;text-align:left;width:40%;">
+                        Fuente
+                    </th>
+                    <th style="background:{C_GREEN};color:white;padding:8px 12px;
+                                border-radius:0 6px 0 0;text-align:left;">
+                        Qué mide
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background:#f9fafb;">
+                    <td style="padding:9px 12px;border:1px solid #e5e7eb;
+                                font-weight:600;color:{C_DARK};">
+                        📱 App móvil de Meta
+                    </td>
+                    <td style="padding:9px 12px;border:1px solid #e5e7eb;color:{C_GRAY};">
+                        Muestra únicamente las interacciones <strong>directas</strong>
+                        en el muro principal de Preforte (reacciones, comentarios y clics
+                        en el post original).
+                    </td>
+                </tr>
+                <tr style="background:#f0fdf4;">
+                    <td style="padding:9px 12px;border:1px solid {C_BORDER};
+                                font-weight:600;color:{C_GREEN};">
+                        📊 Este Dashboard (CSV de Meta)
+                    </td>
+                    <td style="padding:9px 12px;border:1px solid {C_BORDER};color:{C_DARK};">
+                        Suma las interacciones directas <strong>más</strong> el
+                        <strong>Efecto Viral</strong>: reacciones, comentarios y clics
+                        que ocurren cuando ingenieros o constructoras
+                        <em>comparten</em> los posts en sus propios perfiles o grupos
+                        en Bolivia.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="margin:12px 0 4px;font-size:.85rem;color:{C_GRAY};
+                   border-top:1px solid {C_BORDER};padding-top:10px;">
+            <em>Este enfoque asegura medir el verdadero rendimiento y la ola expansiva
+            real de cada contenido industrial de la empresa.</em>
+        </p>
+        """, unsafe_allow_html=True)
 
     st.divider()
 
@@ -1039,6 +1111,13 @@ with tab3:
             f"indican que el contenido tecnico visual es usado como referencia por "
             f"arquitectos e ingenieros — alta intencion futura de compra."
         )
+
+    # Nota metodológica en la comparativa de Tab 3
+    st.caption(
+        f"📌 **Nota de Datos:** Los totales de alcance e interacciones reflejan el "
+        f"**Impacto Orgánico Consolidado** (directo + efecto viral por compartidos) "
+        f"exportado desde Meta Business Suite — superior a lo visible en la app móvil."
+    )
 
     # Mini-grafico comparativo
     df_cmp = pd.DataFrame({
